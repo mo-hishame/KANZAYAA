@@ -205,7 +205,33 @@
       font-family: 'Cairo', sans-serif; cursor: pointer; color: var(--primary-burgundy);
     }
     .qr-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
-    .qr-box { background: #fff; padding: 25px; border-radius: 20px; text-align: center; }
+    .qr-box { 
+      background: #fff; 
+      padding: 25px 20px; 
+      border-radius: 25px; 
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Heart Shaped Container for QR Code */
+    .heart-qr-wrapper {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 15px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      clip-path: path('M 100,30 C 60,-20 0,20 0,80 C 0,130 60,165 100,195 C 140,165 200,130 200,80 C 200,20 140,-20 100,30 Z');
+      background: #8b263e;
+      padding: 15px;
+    }
+
+    #qrcode img, #qrcode canvas {
+      border-radius: 10px;
+      width: 140px !important;
+      height: 140px !important;
+    }
   </style>
 </head>
 <body>
@@ -233,26 +259,26 @@
 
     <!-- Images Card (Vertical Stack) -->
     <div class="exact-card">
-      <div class="section-header">عبثيات كنزايتى 📸</div>
+      <div class="section-header">أحلى صور لكنزايتى 📸</div>
       <div class="images-list">
         
         <div class="image-item">
           <div class="img-frame">
-            <img src="./img1.jpg" alt="Photo 1" onerror="this.src='WhatsApp Image 2026-11-02 at 1.47.01 PM.jpeg'">
+            <img src="WhatsApp Image 2026-11-02 at 1.47.02 PM.jpeg" onerror="this.onerror=null; this.src='img1.jpg';" alt="Photo 1">
           </div>
           <div class="brown-heart-emoji">🤎</div>
         </div>
 
         <div class="image-item">
           <div class="img-frame">
-            <img src="./img2.jpg" alt="Photo 2" onerror="this.src='WhatsApp Image 2026-11-02 at 1.47.02 PM.jpeg'">
+            <img src="WhatsApp Image 2026-11-02 at 1.47.03 PM.jpeg" onerror="this.onerror=null; this.src='img2.jpg';" alt="Photo 2">
           </div>
           <div class="brown-heart-emoji">🤎</div>
         </div>
 
         <div class="image-item">
           <div class="img-frame">
-            <img src="./img3.jpg" alt="Photo 3" onerror="this.src='WhatsApp Image 2026-11-02 at 1.47.03 PM.jpeg'">
+            <img src="WhatsApp Image 2026-11-02 at 2.47.55 PM.jpeg" onerror="this.onerror=null; this.src='img3.jpg';" alt="Photo 3">
           </div>
           <div class="brown-heart-emoji">🤎</div>
         </div>
@@ -263,7 +289,7 @@
     <!-- Countdown Timer -->
     <div class="exact-card">
       <div class="title-tag"><span>⏳</span> عد تنازلي لـ 1/12/2026</div>
-      <div class="timer-subtitle">سوا من 2 ديسمبر 2022 - الساعة 5:00 الفجر 💕</div>
+      <div class="timer-subtitle">سوا من 5 ديسمبر 2022 - الساعة 5:00 الفجر 💕</div>
       <div class="timer-grid">
         <div class="timer-item" id="item-d"><span class="timer-val" id="days">00</span><span class="timer-lbl">يوم</span></div>
         <div class="timer-item" id="item-h"><span class="timer-val" id="hours">00</span><span class="timer-lbl">ساعة</span></div>
@@ -282,13 +308,20 @@
       </div>
     </div>
     <button class="btn-play-pause" onclick="toggleAudio()" id="playBtn">▶️</button>
-    <audio id="bgMusic" loop src="./song.mp3"></audio>
+    <audio id="bgMusic" loop preload="auto" src="song.mp3"></audio>
   </div>
 
   <div class="qr-modal" id="qrModal" onclick="closeQR()">
     <div class="qr-box" onclick="event.stopPropagation()">
-      <h3 style="color:var(--primary-burgundy); margin-bottom:12px;">باركود الموقع 📲</h3>
-      <div id="qrcode"></div>
+      <h3 style="color:var(--primary-burgundy); margin-bottom:8px;">باركود كنزايتى ❤️</h3>
+      <p style="font-size:11px; color:#777;">امسحي الباركود لفتح موقعك الجميل!</p>
+      
+      <!-- Heart Styled QR Code Container -->
+      <div class="heart-qr-wrapper">
+        <div id="qrcode"></div>
+      </div>
+      
+      <button onclick="closeQR()" style="margin-top:5px; background:var(--primary-burgundy); color:#fff; border:none; padding:6px 18px; border-radius:15px; font-family:'Cairo'; font-size:12px; cursor:pointer;">إغلاق</button>
     </div>
   </div>
 
@@ -368,9 +401,13 @@
     function openQR() {
       document.getElementById('qrModal').style.display = 'flex';
       if (!qrDone) {
+        document.getElementById("qrcode").innerHTML = "";
         new QRCode(document.getElementById("qrcode"), {
-          text: window.location.href, width: 150, height: 150,
-          colorDark: "#8b263e", colorLight: "#ffffff"
+          text: "https://mo-hishame.github.io/KANZAYAA/",
+          width: 140, 
+          height: 140,
+          colorDark: "#8b263e", 
+          colorLight: "#ffffff"
         });
         qrDone = true;
       }
