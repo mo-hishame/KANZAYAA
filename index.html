@@ -128,7 +128,6 @@
 
     .msg-content { font-size: 15px; line-height: 1.8; color: var(--text-dark); text-align: right; padding: 10px 5px; }
 
-    /* Vertical Images List */
     .section-header {
       font-size: 16px;
       color: var(--primary-burgundy);
@@ -136,44 +135,193 @@
       margin-bottom: 15px;
     }
 
-    .images-list {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      margin: 10px 0;
+    /* CREATIVE FEATURES STYLES */
+
+    /* 1. Interactive Flip Cards Grid */
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 15px 0;
     }
 
-    .image-item {
+    .flip-card {
+      background-color: transparent;
+      height: 140px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: 18px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-front, .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      padding: 12px;
     }
 
-    .img-frame {
-      width: 100%;
-      height: 380px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-      border: 2px solid rgba(255, 255, 255, 0.9);
-      background: #e0d0c0;
+    .flip-front {
+      background: #f7ece1;
+      border: 2px dashed #e0cfc2;
+      color: var(--primary-burgundy);
     }
 
-    .img-frame img {
+    .flip-front .icon { font-size: 28px; margin-bottom: 5px; }
+    .flip-front span { font-size: 13px; font-weight: 700; }
+    .tap-hint { font-size: 10px; color: #a08878; margin-top: 4px; }
+
+    .flip-back {
+      background: var(--primary-burgundy);
+      color: #ffffff;
+      transform: rotateY(180deg);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* 2. Wheel of Fun */
+    .wheel-container {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 15px auto;
+    }
+
+    .wheel {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid var(--primary-burgundy);
+      position: relative;
+      overflow: hidden;
+      transition: transform 4s cubic-bezier(0.15, 0.99, 0.15, 1);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      background: conic-gradient(
+        #e8b4b8 0deg 90deg,
+        #f4eae1 90deg 180deg,
+        #d8a4a8 180deg 270deg,
+        #ffffff 270deg 360deg
+      );
     }
 
-    .brown-heart-emoji {
-      font-size: 24px;
-      animation: pulseHeart 1.5s infinite ease-in-out;
+    .wheel-label {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      transform-origin: 100% 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary-burgundy);
+      padding: 10px;
+      text-align: center;
     }
 
-    @keyframes pulseHeart {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+    .wl-1 { transform: rotate(0deg); }
+    .wl-2 { transform: rotate(90deg); }
+    .wl-3 { transform: rotate(180deg); }
+    .wl-4 { transform: rotate(270deg); }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 20px solid var(--primary-burgundy);
+      z-index: 10;
+    }
+
+    .btn-spin {
+      background: var(--primary-burgundy);
+      color: #fff;
+      border: none;
+      padding: 8px 22px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(139, 38, 62, 0.2);
+    }
+
+    .wheel-result {
+      margin-top: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-burgundy);
+      min-height: 20px;
+    }
+
+    /* 3. Tap to Reveal Secret Notes */
+    .secret-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .secret-note {
+      background: #f9f2eb;
+      border: 1px solid #e8d8c8;
+      border-radius: 15px;
+      padding: 12px 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: right;
+    }
+
+    .secret-note .secret-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-burgundy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .secret-note .secret-body {
+      font-size: 12px;
+      color: var(--text-dark);
+      margin-top: 8px;
+      display: none;
+      line-height: 1.6;
+      border-top: 1px dashed #d8c2b0;
+      padding-top: 8px;
+    }
+
+    .secret-note.open {
+      background: #ffffff;
+      border-color: var(--accent-pink);
+    }
+
+    .secret-note.open .secret-body {
+      display: block;
     }
 
     /* Timer Grid & Flip Animation */
@@ -343,30 +491,117 @@
       </div>
     </div>
 
-    <!-- Images Card (Fallback Chain Solution) -->
+    <!-- Interactive Creative Cards (Replaced Images) -->
     <div class="exact-card">
-      <div class="section-header">أحلى صور كنزايتى 📸</div>
-      <div class="images-list">
+      <div class="section-header">ألبوم الذكريات التفاعلي 💌</div>
+      <div style="font-size: 11px; color: #a08878; margin-bottom: 10px;">اضغطي على الكروت عشان تكتشفي السر!</div>
+      
+      <div class="flip-grid">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-front">
+              <div class="icon">📏</div>
+              <span>الطول المائل</span>
+              <span class="tap-hint">اضغطي هنا 👈</span>
+            </div>
+            <div class="flip-back">
+              احلى 150 سم في مجرة درب التبانة كلها! 🙈✨
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-front">
+              <div class="icon">🔊</div>
+              <span>الفضيحة العالمية</span>
+              <span class="tap-hint">اضغطي هنا 👈</span>
+            </div>
+            <div class="flip-back">
+              فضاحتنا في كل حته بلسانك اللي عايز قطعه ده! 🤐😂
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-front">
+              <div class="icon">📚</div>
+              <span>بطلة ثانوية</span>
+              <span class="tap-hint">اضغطي هنا 👈</span>
+            </div>
+            <div class="flip-back">
+              أجدع وأشطر ثانوية عامة وإن شاء الله حلمك يتحقق 🎓❤️
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-front">
+              <div class="icon">👭</div>
+              <span>الأخوة الدائمة</span>
+              <span class="tap-hint">اضغطي هنا 👈</span>
+            </div>
+            <div class="flip-back">
+              ربنا يزيد الأخوة والروقـان وما يحرمناش من بعض أبداً 🌸
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spin Wheel Section -->
+    <div class="exact-card">
+      <div class="title-tag"><span>🎰</span> عجلة عقاب كنزايتي <span>🎰</span></div>
+      
+      <div class="wheel-container">
+        <div class="wheel-pointer"></div>
+        <div class="wheel" id="wheel">
+          <div class="wheel-label wl-1">تلمي لسانك يومين 🤐</div>
+          <div class="wheel-label wl-2">عزومة شيبسي وشوكولاتة 🍫</div>
+          <div class="wheel-label wl-3">تسمعي الكلام أسبوع 😇</div>
+          <div class="wheel-label wl-4">اعفاء من العقاب 👑</div>
+        </div>
+      </div>
+      
+      <button class="btn-spin" onclick="spinWheel()">لفي العجلة 🎡</button>
+      <div class="wheel-result" id="wheelResult"></div>
+    </div>
+
+    <!-- Tap to Reveal Secret Messages -->
+    <div class="exact-card">
+      <div class="section-header">رسائل محفورة في السريّة 🤫</div>
+      <div class="secret-list">
         
-        <div class="image-item">
-          <div class="img-frame">
-            <img src="img1.jpg" onerror="this.onerror=null; this.src='img1.jpeg'; if(!this.src.includes('jpeg')) this.src='WhatsApp Image 2026-11-02 at 1.47.02 PM_2.jpeg';" alt="Photo 1">
+        <div class="secret-note" onclick="this.classList.toggle('open')">
+          <div class="secret-title">
+            <span>شفرة رقم 1: نصيحة العمر 💡</span>
+            <span>▼</span>
           </div>
-          <div class="brown-heart-emoji">🤎</div>
+          <div class="secret-body">
+            يا كنزايتي ركزي في دروسك وبلاش لكاعة عشان نفرح بيكي وبأعلى مجموع! 💪
+          </div>
         </div>
 
-        <div class="image-item">
-          <div class="img-frame">
-            <img src="img2.jpg" onerror="this.onerror=null; this.src='img2.jpeg'; if(!this.src.includes('jpeg')) this.src='WhatsApp Image 2026-11-02 at 1.47.03 PM_2.jpeg';" alt="Photo 2">
+        <div class="secret-note" onclick="this.classList.toggle('open')">
+          <div class="secret-title">
+            <span>شفرة رقم 2: الحقيقة المرة 🙈</span>
+            <span>▼</span>
           </div>
-          <div class="brown-heart-emoji">🤎</div>
+          <div class="secret-body">
+            مهما كبرتي ومهما عملتي هتفضلي الكلبة الصغيرة اللي بنحبها برضه ❤️
+          </div>
         </div>
 
-        <div class="image-item">
-          <div class="img-frame">
-            <img src="img3.jpg" onerror="this.onerror=null; this.src='img3.jpeg'; if(!this.src.includes('jpeg')) this.src='WhatsApp Image 2026-11-02 at 2.47.55 PM_2.jpeg';" alt="Photo 3">
+        <div class="secret-note" onclick="this.classList.toggle('open')">
+          <div class="secret-title">
+            <span>شفرة رقم 3: الأهم على الإطلاق ✨</span>
+            <span>▼</span>
           </div>
-          <div class="brown-heart-emoji">🤎</div>
+          <div class="secret-body">
+            كل سنة وأنتي طيبة وفي صحة وسعادة وراحة بال يا رب 🌸
+          </div>
         </div>
 
       </div>
@@ -455,6 +690,33 @@
       } else {
         playAudio();
       }
+    }
+
+    /* Spin Wheel Logic */
+    let currentRotation = 0;
+    const options = [
+      "عقابك: تلمي لسانك يومين! 🤐",
+      "حظك حلو: عزومة شيبسي وشوكولاتة علي حسابك 🍫",
+      "عقابك: تسمعي الكلام أسبوع كامل 😇",
+      "مبروك: إعفاء كامل من أي عقاب اليوم 👑"
+    ];
+
+    function spinWheel() {
+      const wheel = document.getElementById('wheel');
+      const res = document.getElementById('wheelResult');
+      res.innerText = "جاري الدوران... 🎲";
+      
+      const randomRot = Math.floor(Math.random() * 4);
+      const extraSpins = (Math.floor(Math.random() * 3) + 4) * 360;
+      currentRotation += extraSpins + (randomRot * 90);
+      
+      wheel.style.transform = `rotate(${currentRotation}deg)`;
+      
+      setTimeout(() => {
+        // Correct option mapping based on final position
+        const index = (4 - (Math.floor(currentRotation / 90) % 4)) % 4;
+        res.innerText = options[index];
+      }, 4000);
     }
 
     const targetDate = new Date('2026-12-01T00:00:00').getTime();
